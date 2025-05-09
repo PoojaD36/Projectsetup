@@ -1,0 +1,96 @@
+/* Categories Page Responsive Styles */
+#categoriesTable {
+    width: 100% !important;
+}
+
+/* Responsive table behavior */
+@media (max-width: 768px) {
+    #categoriesTable thead {
+        display: none;
+    }
+    
+    #categoriesTable tr {
+        display: block;
+        margin-bottom: 1.5rem;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+    }
+    
+    #categoriesTable td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem;
+        border-bottom: 1px solid #dee2e6;
+        text-align: right;
+    }
+    
+    #categoriesTable td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        margin-right: 1rem;
+        text-align: left;
+    }
+    
+    #categoriesTable td:last-child {
+        border-bottom: 0;
+    }
+    
+    /* Set data labels for each column */
+    #categoriesTable td:nth-child(1):before { content: "#"; }
+    #categoriesTable td:nth-child(2):before { content: "Category"; }
+    #categoriesTable td:nth-child(3):before { content: "Image"; }
+    #categoriesTable td:nth-child(4):before { content: "Description"; }
+    #categoriesTable td:nth-child(5):before { content: "Status"; }
+    #categoriesTable td:nth-child(6):before { content: "Actions"; }
+    
+    /* Special styling for action buttons */
+    #categoriesTable td .actions {
+        margin-left: auto;
+    }
+    
+    /* Empty state adjustments */
+    .empty-state {
+        padding: 1rem;
+    }
+    
+    .empty-state i {
+        font-size: 2rem;
+    }
+}
+
+/* Image preview styling */
+#imagePreview {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Button alignment for mobile */
+@media (max-width: 576px) {
+    .page-header .text-md-right {
+        text-align: left !important;
+        margin-top: 1rem;
+    }
+}
+
+/* Empty state styling */
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.empty-state h4 {
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    margin-bottom: 1.5rem;
+}

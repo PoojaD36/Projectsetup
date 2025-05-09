@@ -1,0 +1,48 @@
+.page-header {
+    padding: 20px 0;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.subcategory-table-container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.subcategory-table {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.subcategory-table th {
+    border-top: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: #6c757d;
+}
+
+.badge-success {
+    background-color: #28a745;
+}
+
+.badge-secondary {
+    background-color: #6c757d;
+}
+
+.custom-file-label::after {
+    content: "Browse";
+    background-color: #e9ecef;
+    border-left: 1px solid #ced4da;
+}
+
+.img-thumbnail {
+    padding: 0.25rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    transition: all 0.2s ease-in-out;
+}
