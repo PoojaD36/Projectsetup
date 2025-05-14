@@ -27,39 +27,77 @@
                 </div>
             @endif
 
-
             <div class="page-content">
                 <div class="subcategory-table-container">
                     <table class="subcategory-table table table-hover">
                         <thead class="thead-light">
                             <tr>
+                                <th class="text-center">#</th>
                                 <th>Name</th>
                                 <th>Parent Category</th>
+                                <th>Description</th>
                                 <th>Products</th>
                                 <th>Status</th>
+                                <th>Image</th>
                                 <th class="text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($subcategories as $subcategory)
-                            <tr>
-                                <td>{{ $subcategory->name }}</td>
-                                <td>{{ $subcategory->category->name ?? 'N/A' }}</td>
-                                <td>{{ $subcategory->products_count }}</td>
-                                <td>
-                                    <span class="badge badge-{{ $subcategory->status == 'active' ? 'success' : 'secondary' }}">
-                                        {{ ucfirst($subcategory->status) }}
-                                    </span>
-                                </td>
-                                <td class="text-right">
-                                    <button class="btn btn-sm btn-primary mr-1 edit-subcategory" data-id="{{ $subcategory->id }}">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger delete-subcategory" data-id="{{ $subcategory->id }}">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            @foreach ($subcategories as $index => $subcategory)
+                                <tr>
+                                    <td class="text-center">{{ $index + 1 }}</td>
+                                    <td>
+                                        <h5 class="mb-0">{{ $subcategory->name }}</h5>
+                                        <small class="text-muted">ID: {{ $subcategory->id }}</small>
+                                    </td>
+                                    <td>{{ $subcategory->category->name ?? 'N/A' }}</td>
+                                    <td>
+                                        <p class="text-muted mb-0">{{ Str::limit($subcategory->description, 50) }}</p>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('product-count', ['subcategory_id' => $subcategory->id]) }}">
+                                            {{ $subcategory->products_count }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @if (strtolower($subcategory->status) === 'active')
+                                            <span class="badge badge-success status-badge active">
+                                                Active
+                                            </span>
+                                        @else
+                                            <span class="badge badge-secondary status-badge inactive">
+                                                Inactive
+                                            </span>
+                                        @endif
+                                    </td>
+
+                                    <td>
+                                        <img src="http://127.0.0.1:8000/{{ $subcategory->image }}"
+                                            style="width: 80px; height: 60px; object-fit: cover;"
+                                            alt="{{ $subcategory->image }}">
+                                    </td>
+
+                                    <td class="text-right">
+                                        <div class="actions">
+                                            <a href="{{ route('Subcategory-edit', ['id' => $subcategory->id]) }}"
+                                                class="btn btn-sm btn-primary mr-1 edit-subcategory" data-toggle="tooltip"
+                                                title="Edit">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                            {{-- <form action="{{ route('Subcategory-edit', $subcategory->id) }}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger delete-subcategory"
+                                                    data-toggle="tooltip" title="Delete"
+                                                    onclick="return confirm('Are you sure you want to delete this subcategory?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form> --}}
+                                        </div>
+                                    </td>
+
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -79,7 +117,7 @@
                         </button>
                     </div>
 
-                    <form method="POST" action="{{ route('subcategory-view') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('subcategory-add') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
                             <!-- Name Field -->
@@ -94,7 +132,7 @@
                                     </span>
                                 @enderror
                             </div>
-                    
+
                             <!-- Description Field -->
                             <div class="form-group">
                                 <label for="description">Description</label>
@@ -106,7 +144,7 @@
                                     </span>
                                 @enderror
                             </div>
-                    
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <!-- Price Field -->
@@ -130,8 +168,9 @@
                                             class="form-control @error('category_id') is-invalid @enderror"
                                             name="category_id" required>
                                             <option value="">-- Select Category --</option>
-                                            @foreach($categories as $category)
-                                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}"
+                                                    {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                                     {{ $category->name }}
                                                 </option>
                                             @endforeach
@@ -144,7 +183,7 @@
                                     </div>
                                 </div>
                             </div>
-                    
+
                             <!-- Image Upload -->
                             <div class="form-group">
                                 <label for="image">Subcategory Image</label>
@@ -161,7 +200,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                    
+
                                 <!-- Image Preview -->
                                 <div class="mt-3 text-center">
                                     <img id="subcategoryImagePreview"
@@ -169,13 +208,16 @@
                                         class="img-thumbnail" style="max-width: 100%; height: auto; max-height: 200px;">
                                 </div>
                             </div>
-                    
+
                             <!-- Status Field -->
                             <div class="form-group">
                                 <label for="status">Status</label>
-                                <select id="status" class="form-control @error('status') is-invalid @enderror" name="status" required>
-                                    <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
-                                    <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                <select id="status" class="form-control @error('status') is-invalid @enderror"
+                                    name="status" required>
+                                    <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active
+                                    </option>
+                                    <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive
+                                    </option>
                                 </select>
                                 @error('status')
                                     <span class="invalid-feedback" role="alert">

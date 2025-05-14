@@ -44,51 +44,30 @@ class UserAuth extends Controller
     }
 
     function loginuser(Request $request)
-    {
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|min:8'
+    ]);
 
-        $request->validate([
+    $credentials = $request->only('email', 'password');
 
-            'email'=>'required',
-            'password'=>'required|min:8'
-        ]);
+    if (Auth::attempt($credentials)) {
+        $user = Auth::user();
 
-
-       
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-
-            //return Auth::user();
-            return redirect()->intended('dashboard'); // or any route
+        // Check user_type and redirect accordingly
+        if ($user->user_type == 1) {
+            return redirect()->intended('dashboard');
+        } else {
+            return redirect()->intended('index-view'); // Change this route as needed
         }
-
-
-
-
-    
-        return back()->withErrors([
-            'email' => 'Invalid credentials',
-        ]);
-
-        // $user = User::where('email', '=',$request->email)->first();
-        // if(user)
-        // {
-        //     if(Hash::check($request->password, $user->password))
-        //     {
-        //         $request = Session()-> put('login_id', $user->id);
-
-        //         return redirect('dashboard');
-        //     }
-        //     else
-        //     {
-        //         return back()-> with('fail', 'Invalid email and password');
-        //     }
-        // }
-        // else
-        // {
-        //     return back()-> with('fail', 'Invalid email and password');
-        // }
     }
+
+    // If authentication fails
+    return back()->withErrors([
+        'email' => 'Invalid credentials',
+    ]);
+}
 
     function logoutUser()
     {
@@ -102,5 +81,25 @@ class UserAuth extends Controller
         //   dd('request');
          
     }
+
+    public function redirectAfterLogin()
+{
+    $loguser = auth()->user(); // get logged-in user
+
+    if($loguser->type == 1){
+        return redirect('dashboard.home');
+    }
+    if($loguser->type == 0) {
+        return redirect('user/dashboard');
+    }
+
+    // Optional: default redirect if no type matched
+    return redirect('home');
+}
+
+function Userindex(){
+    return view("User-dashboard.index");
+}
+
 
 }

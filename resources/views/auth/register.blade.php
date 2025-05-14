@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | Your Brand</title>
+    <title>Register | My Website</title>
     <link rel="stylesheet" href="auth.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -314,7 +314,7 @@ a:hover {
             <div class="auth-header">
                 <h1>Create Account</h1>
                 <p>Join us today for exclusive features</p>
-            </div>
+        </div>
 
 
             @if(session('success'))
@@ -342,8 +342,8 @@ a:hover {
                     @error('name')
                         <div class="error">{{ $message }}</div>
                     @enderror
-                </div>
-                
+        </div>
+
                 <div class="form-group">
                     <label for="email">Email Address</label>
                     <div class="input-with-icon">
@@ -372,8 +372,8 @@ a:hover {
                         <i class="fas fa-lock"></i>
                         <input type="password" id="confirm-password" placeholder="Confirm your password" name="confirmPwd" required>
                     </div>
-                </div>
-                
+        </div>
+
                 <div class="form-group terms">
                     <input type="checkbox" id="terms" required>
                     <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
@@ -394,7 +394,7 @@ a:hover {
                 </div>
             </form>
         </div>
-        
+
         <div class="auth-decoration">
             <div class="decoration-content">
                 <h2>Welcome!</h2>

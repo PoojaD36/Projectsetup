@@ -46,6 +46,12 @@
                     <span>Subcategories</span>
                 </a>
             </li>
+            <li class="{{ Request::is('products') ? 'active' : '' }}">
+                <a href="{{ route('product-view') }}" class="product-link">
+                    <i class="fas fa-tags"></i>
+                    <span>Products</span>
+                </a>
+            </li>
         </ul>
     </nav>
     

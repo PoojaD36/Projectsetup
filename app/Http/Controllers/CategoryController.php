@@ -28,13 +28,32 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'fulldesc' => 'nullable',
-            'imglink' => 'nullable|url'
+            'image' => 'nullable',
+            'status' => 'nullable',
         ]);
         $category = new Category();
         $category->name= $request->name;
         $category->description= $request->fulldesc;
-        $category->image= $request->imglink;
+     //   $category->image= $request->imglink;
+           if ($image = $request->file('image')) {
+        $destinationPath = 'image/'; // Define the directory where you want to store the image
+
+        // Generate a unique filename using current date/time and the original extension
+        $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+
+        // Move the uploaded image to the destination folder
+        $image->move($destinationPath, $profileImage);
+
+        // Save the image filename (path) in the database
+        $category->image = $destinationPath . $profileImage;
+    }
+
+
+        $category->status= $request->status;
         $result =  $category->save();
+
+        return redirect()->route('Categorylist')
+                ->with('success', 'Category created successfully!');
 
     }
     
@@ -42,22 +61,20 @@ class CategoryController extends Controller
    function editCategory($id)
     {
         $category = Category::findOrFail($id);
-        return response()->json($category);
+       
+        return view('categories.category_edit', compact('category'));
     }
 
-    function update(Request $request, $id)
+    function updateCategory(Request $request,$id)
     {
-        $category = Category::findOrFail($id);
-        
-        $validated = $request->validate([
-            'tag' => 'required|unique:categories,tag,'.$id,
-            'name' => 'required',
-            'shortdesc' => 'required',
-            'fulldesc' => 'nullable',
-            'imglink' => 'nullable|url'
-        ]);
-
-        $category->update($validated);
+     
+       $category = Category::find($id);
+$category->update([
+    'name' => $request->name,
+    'description' => $request->description,
+    'status' => $request->status,
+    'image' => $request->image,
+]);
 
         return response()->json(['success' => 'Category updated successfully']);
     }
@@ -72,7 +89,7 @@ class CategoryController extends Controller
 
     function categoryListData()
     {
-//$id_value = Session::get('login_id');
+
 
         $listData = Category::all();
 

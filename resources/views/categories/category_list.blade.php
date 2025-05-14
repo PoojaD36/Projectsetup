@@ -62,14 +62,14 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="imglink" class="font-weight-bold">Image URL</label>
+                                        <label for="image" class="font-weight-bold">Image URL</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text bg-light"><i class="fas fa-link text-primary"></i></span>
                                             </div>
-                                            <input type="text" class="form-control border-left-0" id="imglink" placeholder="Paste image URL" name="imglink" value="{{old('imglink')}}">
+                                            <input type="text" class="form-control border-left-0" id="image" placeholder="Paste image URL" name="image" value="{{old('image')}}">
                                         </div>
-                                        <span class="text-danger small">@error('imglink'){{$message}} @enderror</span>
+                                        <span class="text-danger small">@error('image'){{$message}} @enderror</span>
                                     </div>
                                 </div>
                             </div>
