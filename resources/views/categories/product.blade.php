@@ -80,16 +80,6 @@
                                                 title="Edit">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
-                                            {{-- <form action="{{ route('Product-edit', $product->id) }}" method="POST"
-                                                class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger delete-product"
-                                                    data-toggle="tooltip" title="Delete"
-                                                    onclick="return confirm('Are you sure you want to delete this product?')">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form> --}}
                                         </div>
                                     </td>
                                 </tr>

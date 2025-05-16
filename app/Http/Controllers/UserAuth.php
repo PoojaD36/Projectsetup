@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Order;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 
@@ -59,7 +60,7 @@ class UserAuth extends Controller
         if ($user->user_type == 1) {
             return redirect()->intended('dashboard');
         } else {
-            return redirect()->intended('index-view'); // Change this route as needed
+            return redirect()->intended('user-product-view'); // Change this route as needed
         }
     }
 
@@ -77,7 +78,12 @@ class UserAuth extends Controller
 
     function home(){
 
-           return view('dashboard.home');
+        $newOrdersCount = Order::where('status', 'pending')->count();
+    $orders = Order::latest()->take(10)->get();
+    
+    return view('dashboard.home', compact('newOrdersCount', 'orders'));
+
+        //    return view('dashboard.home');
         //   dd('request');
          
     }
@@ -90,16 +96,13 @@ class UserAuth extends Controller
         return redirect('dashboard.home');
     }
     if($loguser->type == 0) {
-        return redirect('user/dashboard');
+        return redirect('User-dashboard/home');
     }
 
     // Optional: default redirect if no type matched
     return redirect('home');
 }
 
-function Userindex(){
-    return view("User-dashboard.index");
-}
 
 
 }

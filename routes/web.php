@@ -63,22 +63,12 @@ Route::any('/products', [ProductController::class, 'productView'])->name('produc
 
 
 
-Route::get('index-view', [UserAuth::class, 'index'])->name('index-view');
+Route::any('user-product-view', [ProductController::class, 'userproductView'])->name('user-product-view');
+Route::any('user-cart', [ProductController::class, 'userproductCart'])->name('user-cart');
+Route::any('user-checkout', [ProductController::class, 'processCheckout'])->name('user-checkout');
 
+Route::get('show-cart', [ProductController::class, 'showCart'])->name('show-cart');
 
-
-Route::get('/', [UserAuth::class, 'Userindex'])->name('home');
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.show');
-
-Route::prefix('cart')->group(function() {
-    Route::get('/', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/add', [CartController::class, 'add'])->name('cart.add');
-    Route::put('/update/{rowId}', [CartController::class, 'update'])->name('cart.update');
-    Route::delete('/remove/{rowId}', [CartController::class, 'remove'])->name('cart.remove');
-});
-
-Route::prefix('checkout')->group(function() {
-    Route::get('/', [CheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('/process', [CheckoutController::class, 'process'])->name('checkout.process');
-});
+Route::post('add-to-cart', [ProductController::class, 'addToCart'])->name('cart.add');
+Route::patch('/cart/{id}', [ProductController::class, 'update'])->name('cart.update');
+Route::delete('/cart/{id}', [ProductController::class, 'destroy'])->name('cart.destroy');
