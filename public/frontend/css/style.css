@@ -270,6 +270,7 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5rem;
+    margin-left: 120px;
     padding-bottom: 1rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -689,6 +690,7 @@ body {
     padding: 1.5rem;
     box-shadow: var(--shadow);
     overflow-x: auto;
+    margin-left: 120px;
 }
 
 .subcategory-table {
@@ -763,7 +765,6 @@ body {
 }
 
 .subcategory-table {
-    table-layout: fixed;
     overflow: hidden;
     width: 100%;
 }
@@ -892,9 +893,10 @@ body {
 }
 
 .modal-title {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: 600;
     color: var(--dark-color);
+    margin-bottom: 20px;
 }
 
 .modal-close {
@@ -1014,6 +1016,7 @@ td a[data-count^="1"] { /* If count starts with 1 (1, 10, 100...) */
     padding: 1.5rem;
     box-shadow: var(--shadow);
     overflow-x: auto;
+    margin-left: 120px;
 }
 
 .product-table {
@@ -1119,12 +1122,18 @@ td a[data-count^="1"] { /* If count starts with 1 (1, 10, 100...) */
 @media (max-width: 992px) {
     .product-table-container {
         padding: 1rem;
+        margin-left: 0;
     }
     
     .product-table th,
     .product-table td {
         padding: 0.75rem;
     }
+    .subcategory-table-container{
+        padding: 1rem;
+        margin-left: 0;
+    }
+    
 }
 
 @media (max-width: 768px) {
@@ -1181,7 +1190,7 @@ td a[data-count^="1"] { /* If count starts with 1 (1, 10, 100...) */
     }
     
     .main-content {
-        margin-left: var(--sidebar-width);
+        margin-left: 135px;
         margin-top: 0;
     }
 }
@@ -1230,6 +1239,7 @@ td a[data-count^="1"] { /* If count starts with 1 (1, 10, 100...) */
         flex-direction: column;
         align-items: flex-start;
         gap: 1rem;
+        margin-left: 0;
     }
     
     .stats-grid {

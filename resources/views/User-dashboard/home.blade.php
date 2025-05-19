@@ -33,7 +33,6 @@
                                 to High</option>
                             <option value="price-high" {{ request('sort') == 'price-high' ? 'selected' : '' }}>Price:
                                 High to Low</option>
-                            <option value="rating" {{ request('sort') == 'rating' ? 'selected' : '' }}>Rating</option>
                         </select>
                     </div>
                 </div>

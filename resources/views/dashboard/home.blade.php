@@ -25,7 +25,7 @@
                         <h2>Hiii, Welcome</h2>
                         <p>Your one-stop online store offering a wide range of products—from electronics and fashion to home
                             essentials—all at great prices with fast delivery.</p>
-                        <button class="btn btn-primary">Get Started</button>
+                        {{-- <button class="btn btn-primary">Get Started</button> --}}
                     </div>
                     <div class="hero-image">
                         <img src="https://cdn-icons-png.flaticon.com/512/3132/3132693.png" alt="Dashboard Illustration">

@@ -39,7 +39,6 @@ Route::any('categories-list', [CategoryController::class, 'categoryListData'])->
 Route::any('add-category', [CategoryController::class, 'addCategory'])->name('Categoryadd');
 Route::any('/edit-category/{id}', [CategoryController::class, 'editCategory'])->name('Category-edit');
 Route::put('/update-category/{id}', [CategoryController::class, 'updateCategory'])->name('Category-update');
-//Route::any('delete-category', [CategoryController::class, 'deleteCategory'])->name('category-delete');
 
 Route::any('/logout', function () {
     return redirect('/login');

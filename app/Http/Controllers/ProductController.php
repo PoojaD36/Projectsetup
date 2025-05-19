@@ -123,9 +123,6 @@ public function updateCategorySelection(Request $request)
         case 'price-high':
             $query->orderBy('price', 'desc');
             break;
-        case 'rating':
-            $query->orderBy('rating', 'desc');
-            break;
         default:
             $query->latest();
     }
@@ -235,38 +232,8 @@ public function addToCart(Request $request)
                 ->with('success', 'Increaced successfully!');
     }
 
-
-    // public function processCheckout(Request $request)
-    //     {
-
-    //         // Validate the form data
-    //         $validatedData = $request->validate([
-    //         'first_name' => 'required',
-    //         'last_name' => 'required',
-    //         'address' => 'required',
-    //         'address_2' => 'nullable',
-    //         'country' => 'required',
-    //         'state' => 'required',
-    //         'city' => 'required',
-    //         'zip_code' => 'required',
-    //         'phone' => 'required',
-    //     ]);
-
-
-    //     // Add user_id to the data array
-    //     $validatedData['user_id'] = Auth::id();
-
-    //     // Create a new checkout record
-    //     Checkout::create($validatedData);
-
-    //     return back()->with('success', 'Address saved!');
-
-    // }
-
-
     public function processCheckout(Request $request)
 {
-    // return"rfkhgfjuyhg";
     // Validate the form data
     $validatedData = $request->validate([
         'first_name' => 'required',

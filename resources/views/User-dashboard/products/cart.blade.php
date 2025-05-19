@@ -218,9 +218,8 @@
                 </div>
 
                 <div class="d-grid mt-4">
-                    <button type="submit" class="btn btn-checkout btn-lg">
+                    <button type="submit" class="btn btn-checkout btn-lg" id="completeOrderBtn">
                         <i class="fas fa-lock me-2"></i> Complete Order
-                        {{-- (₹{{ number_format($total, 2) }}) --}}
                     </button>
                 </div>
             </form>
@@ -229,6 +228,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Payment method selection
@@ -252,5 +252,28 @@
             // Initialize with credit card selected
             document.querySelector('.payment-method[data-method="credit"]').click();
         });
+        document.getElementById('completeOrderBtn').addEventListener('click', function() {
+  Swal.fire({
+    title: 'Confirm Your Order',
+    text: "Are you sure you want to complete this order? This action cannot be undone.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, complete order!',
+    cancelButtonText: 'Cancel'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // User confirmed - submit the form
+      // document.getElementById('yourFormId').submit();
+      
+      Swal.fire(
+        'Completed!',
+        'Your order has been placed.',
+        'success'
+      );
+    }
+  });
+});
     </script>
 @endsection
